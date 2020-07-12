@@ -1,17 +1,34 @@
-const animals = require('./animals.json');
+const db = require('../configs/sqlite');
+const uuid = require('uuid').v4;
+
 exports.getAnimals = () => {
     return new Promise((resolve, reject) => {
-        resolve(animals);
+        db.all(`SELECT _id FROM animais `, (err, animais) => {
+            if(err) reject (err);
+            resolve(animais);
+        });
     });
 };
 exports.getAnimal = id => {
     return new Promise((resolve, reject) => {
-        resolve(animals.find(animal => animal._id === id));
+        db.get(`SELECT * FROM animais WHERE _id = ?`, [ID], (err, animal) => {
+            if(err) reject (err);
+            resolve(animal);
+        });
     });
 };
-exports.addAnimal = animal => {
+exports.addAnimal = body => {
     return new Promise((resolve, reject) => {
-        resolve({ inserted: 1 });
+        const id = uuid ();
+        db.run (
+        `INSERT INTO animais(_id, nome, idade, localidade, distrito) VALUES(?,?,?,?,?)`,
+        [id, body.nome, body.idade, body.localidade, body.distrito],
+        err => {
+        if (err) reject (err);
+        resolve ({inserted: 1, _id: id});
+        }
+        );
+        
     });
 };
 exports.updateAnimal = (id, animal) => {
