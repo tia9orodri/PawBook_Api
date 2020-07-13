@@ -2,7 +2,7 @@ const db = require("../configs/sqlite");
 const cipher = require("../helpers/cipher");
 const roles = require("../helpers/roles");
 
-exports.register = (username, rawPassword, role) => {
+exports.register = (username, rawPassword,name, role, email) => {
     return new Promise((resolve, reject) => {
         try {
             db.collection('users').findOne({ username: username }).then((found) => {
