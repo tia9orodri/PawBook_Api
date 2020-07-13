@@ -1,7 +1,8 @@
 const animalService = require('../services/animal-service');
+
 exports.getAnimals = (req, res) => {
     animalService
-        .getAnimals()
+        .getAnimals(req.query)
         .then(result => res.json(result))
         .catch(err => res.status(500).send(err.message));
 };

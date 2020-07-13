@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 // routes and api calls
 app.use('/animal', animalsRoutes);
+app.use('/user', require('./routes/user-route.js'));
 // start node server
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
