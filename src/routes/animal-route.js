@@ -1,5 +1,5 @@
 // import dependencies and initialize the express router
-const express = require('express');
+//const express = require('express');
 const AnimalsController = require('../controllers/animal-controller');
 const router = require('express').Router();
 
@@ -12,9 +12,8 @@ const roles = require('../helpers/roles.js');
 router.get('', authorize(),AnimalsController.getAnimals);
 router.get('/:id',authorize(),AnimalsController.getAnimal);
 router.post('', authorize(roles.Boss),AnimalsController.postAnimal);
-router.put('/:id', authorize(roles.Boss),AnimalsController.putAnimal);
+router.put('/data/:id', authorize(roles.Boss),AnimalsController.putAnimal);
 router.delete('/:id', authorize(roles.Boss),AnimalsController.deleteAnimal);
 
-        //Rotas User
 
 module.exports = router;

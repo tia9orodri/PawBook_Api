@@ -1,4 +1,4 @@
-const db = require("../configs/sqlite").getDB();
+const db = require("../configs/sqlite");
 const cipher = require("../helpers/cipher");
 const roles = require("../helpers/roles");
 

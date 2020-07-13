@@ -6,7 +6,7 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 
 router.get("/animal", authorize(), userController.getAnimais);
-router.post("/banimal/:id", authorize(), userController.addAnimal);
+router.post("/animal/:id", authorize(), userController.addAnimal);
 router.delete("/animal/:id", authorize(), userController.removeAnimal);
 
 module.exports = router;
