@@ -2,9 +2,7 @@ require("dotenv").config();
 
 const db = require("./configs/sqlite");
 
-Promise.all([db.connectDB(), store.connectStorage()])
-  .then(() => {
-    console.log(`\x1b[32m(PLAIN) Successfuly connected to database and object storage servers\x1b[0m`);
+
 // import dependencies and initialize express
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -30,8 +28,4 @@ const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`\x1b[32m(PLAIN) Server listening on port ${port}\x1b[0m.`);
 });
-  })
-.catch((err) => {
-    console.error(err);
-    process.exit();
-  });
+
