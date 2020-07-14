@@ -2,10 +2,12 @@ const db = require("../configs/sqlite");
 const cipher = require("../helpers/cipher");
 const roles = require("../helpers/roles");
 
+
+////Resolver ESTA PARTE PARA SQLITE
 exports.register = (username, rawPassword,name, role, email) => {
     return new Promise((resolve, reject) => {
         try {
-            db.collection('users').findOne({ username: username }).then((found) => {
+            db.all('utilizadores').findOne({ username: username }).then((found) => {
                 if (!found) {
                     if (Object.values(roles).indexOf(role) > -1) {
                         if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d$@$!%*#?&-.]{8,}$/.test(rawPassword)) {
@@ -21,10 +23,10 @@ exports.register = (username, rawPassword,name, role, email) => {
         } catch (error) { reject(error.message); }
     });
 };
-
+//RESOLVER ESTE TAMBEM
 exports.authenticate = (username, rawPassword) => {
     return new Promise((resolve, reject) => {
-        db.collection('users')
+        db.all('utilizadores')
             .findOne({ username: username })
             .then((user) => {
                 if (user) {
@@ -36,3 +38,65 @@ exports.authenticate = (username, rawPassword) => {
             .catch((error) => reject(error));
     });
 };
+
+
+exports.getUsers = () => {
+    return new Promise((resolve, reject) => {
+        db.all(`SELECT _id FROM utilizadores `, (err, users) => {
+            if (err) reject(err);
+            resolve(users);
+        });
+    });
+};
+exports.getUser = id => {
+    return new Promise((resolve, reject) => {
+        db.get(`SELECT * FROM utilizadores WHERE _id=?`, [ID], (err, user) => {
+            if (err) reject(err);
+            resolve(user);
+        });
+    });
+};
+exports.addUser = body => {
+    return new Promise((resolve, reject) => {
+        const id = uuid();
+        db.run(
+            `INSERT INTO utilizadores(_id, nome, idade, localidade, distrito) VALUES(?,?,?,?,?)`,
+            [id, body.nome, body.idade, body.localidade, body.distrito],
+            err => {
+                if (err) reject(err);
+                resolve({ inserted: 1, _id: id });
+            }
+        );
+
+    });
+};
+exports.updateUser = (id, user) => {
+    return new Promise((resolve, reject) => {
+        db.run(
+            `UPDATE utilizadores
+             SET (nome, idade, localidade, distrito) VALUES(?,?,?,?)
+             WHERE _id = ?`, [ID, body.nome, body.idade, body.localidade, body.distrito], 
+             (err, user) => {
+                if (err) reject(err);
+                resolve(user);
+            }
+        );
+    });
+};
+exports.deleteUser = id => {
+    return new Promise((resolve, reject) => {
+        db.run(
+            `DELETE FROM utilizadores WHERE _id = ?`, [ID], (err, user) => {
+                if (err) reject(err);
+                resolve(user);
+            }
+        );
+    });
+}; 
+
+
+
+
+
+
+

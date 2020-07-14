@@ -1,4 +1,4 @@
-const userService = require('../services/user-service.js');
+const userService = require('../services/user-service');
 const jwt = require('../helpers/jwt.js');
 
 exports.register = (req, res) => {
@@ -18,7 +18,7 @@ exports.login = (req, res) => {
 //obter só um utilizador
 exports.getUser = (req, res) => {
   userService
-    .getUSer(req.params.id)
+    .getUser(req.params.id)
     .then(() => res.json(result))
     .catch((err) => res.status(500).send(err.message));
 };

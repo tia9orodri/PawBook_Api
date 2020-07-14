@@ -9,8 +9,8 @@ const roles = require('../helpers/roles.js');
 
 // define routes
         //Rotas Animais
-router.get('', authorize(),AnimalsController.getAnimals);
-router.get('/:id',authorize(),AnimalsController.getAnimal);
+router.get('',AnimalsController.getAnimals);
+router.get('/:id',AnimalsController.getAnimal);
 router.post('', authorize(roles.Boss),AnimalsController.postAnimal);
 router.put('/data/:id', authorize(roles.Boss),AnimalsController.putAnimal);
 router.delete('/:id', authorize(roles.Boss),AnimalsController.deleteAnimal);
