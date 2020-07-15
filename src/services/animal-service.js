@@ -40,7 +40,7 @@ exports.updateAnimal = (id, body) => {
               [body.nome, body.idade, body.localidade, body.distrito, id], 
             err => {
                 if (err) reject(err);
-                resolve({updated:1});
+                resolve({updated:1,animal});
             }
         );
     });
@@ -50,7 +50,7 @@ exports.deleteAnimal = id => {
         db.run(
             `DELETE FROM animais WHERE _id = ?`, [id], (err, animal) => {
                 if (err) reject(err);
-                resolve({removed:1});
+                resolve({removed:1,animal});
             }
         );
     });

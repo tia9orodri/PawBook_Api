@@ -1,7 +1,7 @@
 // import dependencies and initialize the express router
-//const express = require('express');
+const express = require('express');
 const AnimalsController = require('../controllers/animal-controller');
-const router = require('express').Router();
+const router=express.Router();
 
 
 const authorize = require('../configs/authorization');

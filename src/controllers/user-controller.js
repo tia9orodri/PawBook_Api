@@ -3,8 +3,8 @@ const jwt = require('../helpers/jwt.js');
 
 exports.register = (req, res) => {
   userService
-    .register(req.body.username, req.body.password, req.body.nome, req.body.role)
-    .then(() => res.sendStatus(200))
+    .register(req.body.email, req.body.password, req.body.nome)
+    .then(() => res.sendStatus(200).json({ success: true }))
     .catch((message) => res.status(500).send(message));
 };
 
@@ -37,9 +37,9 @@ exports.putUser = (req, res) => {
     .catch(err => res.status(500).send(err.message));
 };
 //apagar user
-exports.removeUser = (req, res) => {
+exports.deleteUser = (req, res) => {
   userService
-    .removeUser(req.params.id)
+    .deleteUser(req.params.id)
     .then(() => res.json(result))
     .catch((err) => res.status(500).send(err.message));
 };

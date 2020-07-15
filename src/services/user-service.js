@@ -4,7 +4,7 @@ const roles = require("../helpers/roles");
 
 
 ////Resolver ESTA PARTE PARA SQLITE
-exports.register = (username, rawPassword,name, role, email) => {
+/*exports.register = (username, rawPassword,nome, localidade, distrito, email) => {
     return new Promise((resolve, reject) => {
         try {
             db.all('utilizadores').findOne({ username: username }).then((found) => {
@@ -22,7 +22,20 @@ exports.register = (username, rawPassword,name, role, email) => {
             }).catch((error) => reject(error.message));
         } catch (error) { reject(error.message); }
     });
-};
+};*/
+
+
+exports.register = (username, rawPassword, nome, localidade, distrito, email ) =>{
+    return new Promise((resolve, reject) =>{
+        const emailUser = db.get(`SELECT * FROM utilizadores WHERE email = ?` [email]);
+        console.log(emailUser);
+    })
+}
+
+
+
+
+
 //RESOLVER ESTE TAMBEM
 exports.authenticate = (username, rawPassword) => {
     return new Promise((resolve, reject) => {
